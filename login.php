@@ -10,7 +10,8 @@
         <div class="container d-flex justify-content-center align-items-center" style="min-height:85vh;">
             <div class="card shadow-sm" style="width:380px;">
                 <div class="card-body p-4">
-                    <h4 class="text-center mb-3 fw-bold">Login</h4>
+                    <h4 class="text-center mb-3 fw-bold">LOGIN</h4>
+                    <p class="text-center text-muted mb-4">Sistem Informasi Akademik</p>
                     <form action="" method="post">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
@@ -20,9 +21,7 @@
                             <label class="form-label">Password</label>
                             <input type="password" name="password" class="form-control" required>
                         </div>
-                        <button type="submit" name="login" class="btn btn-primary w-100">
-                            Login
-                        </button>
+                        <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
                     </form>
                     <?php
                         require 'koneksi.php';
@@ -36,9 +35,13 @@
                             
                             if($result->num_rows > 0){
                                 //echo 'Login Berhasil';
+                                $data = $result->fetch_assoc();
+
                                 session_start();
-                                $_SESSION['login'] = TRUE;
-                                $_SESSION['email'] = $email;
+                                $_SESSION['login'] = true;
+                                $_SESSION['email'] = $data['email'];
+                                $_SESSION['nama_lengkap'] = $data['nama_lengkap'];
+
                                 header("Location: index.php");
                             }else{
                                 echo "Login gagal!";
